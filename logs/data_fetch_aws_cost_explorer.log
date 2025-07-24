@@ -1,0 +1,4 @@
+2025-07-24 22:41:50,067 - INFO - Fetching cost and usage from 2025-06-24 to 2025-07-24
+2025-07-24 22:41:50,093 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-07-24 22:41:50,524 - INFO - Fetched 2 records successfully.
+2025-07-24 22:41:50,537 - INFO - Data saved to data\aws_cost_export.csv
