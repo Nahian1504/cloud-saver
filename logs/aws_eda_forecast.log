@@ -1,0 +1,20 @@
+2025-07-27 04:56:50,091 - INFO - Starting EDA and Forecasting script.
+2025-07-27 04:56:50,095 - INFO - Successfully loaded data: c:\Users\Asus-PC\cloud-saver\analysis\..\data\aws_cost_export.csv
+2025-07-27 04:56:50,098 - INFO - Successfully loaded data: c:\Users\Asus-PC\cloud-saver\analysis\..\data\aws_hybrid_usage.csv
+2025-07-27 04:56:50,100 - INFO - Successfully loaded data: c:\Users\Asus-PC\cloud-saver\analysis\..\data\aws_hybrid_spot_instances.csv
+2025-07-27 04:56:50,326 - INFO - Created cost trend plot: c:\Users\Asus-PC\cloud-saver\analysis\..\visuals\real_cost_trend.png
+2025-07-27 04:56:50,328 - ERROR - Forecast failed for Real AWS Cost: Insufficient valid data points for forecasting
+2025-07-27 04:56:50,835 - INFO - Created cost trend plot: c:\Users\Asus-PC\cloud-saver\analysis\..\visuals\hybrid_cost_trend.png
+2025-07-27 04:56:50,868 - DEBUG - cmd: where.exe tbb.dll
+cwd: None
+2025-07-27 04:56:50,980 - DEBUG - Adding TBB (C:\ProgramData\miniconda3\envs\cloud-saver\Lib\site-packages\prophet\stan_model\cmdstan-2.33.1\stan\lib\stan_math\lib\tbb) to PATH
+2025-07-27 04:56:50,991 - DEBUG - input tempfile: C:\Users\Asus-PC\AppData\Local\Temp\tmpncxaxm6m\6y4ivvt8.json
+2025-07-27 04:56:50,992 - DEBUG - input tempfile: C:\Users\Asus-PC\AppData\Local\Temp\tmpncxaxm6m\cstpfy25.json
+2025-07-27 04:56:50,996 - DEBUG - idx 0
+2025-07-27 04:56:50,996 - DEBUG - running CmdStan, num_threads: None
+2025-07-27 04:56:50,996 - DEBUG - CmdStan args: ['C:\\ProgramData\\miniconda3\\envs\\cloud-saver\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=17435', 'data', 'file=C:\\Users\\Asus-PC\\AppData\\Local\\Temp\\tmpncxaxm6m\\6y4ivvt8.json', 'init=C:\\Users\\Asus-PC\\AppData\\Local\\Temp\\tmpncxaxm6m\\cstpfy25.json', 'output', 'file=C:\\Users\\Asus-PC\\AppData\\Local\\Temp\\tmpncxaxm6m\\prophet_model72xuctkj\\prophet_model-20250727045650.csv', 'method=optimize', 'algorithm=newton', 'iter=10000']
+2025-07-27 04:56:50,996 - INFO - Chain [1] start processing
+2025-07-27 04:56:51,135 - INFO - Chain [1] done processing
+2025-07-27 04:56:51,465 - INFO - Successfully created forecast plots for c:\Users\Asus-PC\cloud-saver\analysis\..\visuals\hybrid_cost_forecast.png
+2025-07-27 04:56:51,564 - INFO - Created survival plot: c:\Users\Asus-PC\cloud-saver\analysis\..\visuals\spot_survival.png
+2025-07-27 04:56:51,564 - INFO - Script completed successfully.

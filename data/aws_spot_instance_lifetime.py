@@ -49,13 +49,7 @@ def fetch_spot_instance_lifetimes(region='us-east-1'):
             now = datetime.now(timezone.utc)
             interrupted = 1 if 'instance-terminated' in status_code.lower() else 0
 
-            # Estimate duration
-            if instance['State']['Name'] in ['terminated', 'stopped']:
-                end_time = now
-            else:
-                end_time = now
-
-            duration = end_time - launch_time
+            duration = now - launch_time
             duration_hours = round(duration.total_seconds() / 3600, 2)
 
             data.append({
