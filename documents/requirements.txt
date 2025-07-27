@@ -37,7 +37,6 @@ urllib3==2.5.0
 boto3==1.26.135
 google-cloud-bigquery==3.10.0
 cachetools==6.1.0
-protobuf==6.31.1
 db-dtypes==1.4.3
 
 # Utilities
