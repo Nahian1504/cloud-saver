@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import logging
 from utils import load_data, validate_data
 from cost_calculator import calculate_savings
+from pathlib import Path
 import os
 from datetime import datetime
 
@@ -28,13 +29,25 @@ def main():
     logger.info("Initializing Streamlit dashboard")
     
     try:
-        # Load data
-        cost_data = load_data("data/aws_hybrid_usage.csv")
-        spot_data = load_data("data/aws_hybrid_spot_instances.csv")
+        # Get the correct data paths
+        current_dir = Path(__file__).parent
+        cost_data_path = current_dir.parent / "data" / "aws_hybrid_usage.csv"
+        spot_data_path = current_dir.parent / "data" / "aws_hybrid_spot_instances.csv"
+        
+        # Debug output (visible in the app)
+        st.sidebar.write("Debug Info:")
+        st.sidebar.write(f"Cost data path: {cost_data_path}")
+        st.sidebar.write(f"Spot data path: {spot_data_path}")
+        st.sidebar.write(f"File exists: {cost_data_path.exists()}")
+        
+        # Load data with validation
+        cost_data = load_data(cost_data_path)
+        spot_data = load_data(spot_data_path)
         
         if not validate_data(cost_data) or not validate_data(spot_data):
-            st.error("Invalid data format. Please check the logs.")
-            logger.error("Data validation failed")
+            error_msg = "Invalid data format. Please check the logs."
+            st.error(error_msg)
+            logger.error(f"Data validation failed. Cost data columns: {cost_data.columns}, Spot data columns: {spot_data.columns}")
             return
         
         # Dashboard Header
@@ -55,9 +68,15 @@ def main():
         with tab3:
             calculate_savings(cost_data)
             
+    except FileNotFoundError as e:
+        error_msg = f"Data file missing: {str(e)}"
+        logger.critical(error_msg, exc_info=True)
+        st.error(error_msg)
+        st.info(f"Please ensure your data files exist in: {current_dir.parent / 'data'}")
+        
     except Exception as e:
         logger.error(f"Dashboard error: {str(e)}", exc_info=True)
-        st.error("An error occurred. Please check the logs.")
+        st.error(f"An unexpected error occurred: {str(e)}")
         st.stop()
 
 def render_cost_analysis(data):
