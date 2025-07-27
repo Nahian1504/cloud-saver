@@ -49,7 +49,7 @@ def load_data(file_path):
         found_date_cols = [col for col in date_cols_to_try if col in df.columns]
         primary_date_col = None
         
-        # If we found potential date columns, try parsing them
+       
         if found_date_cols:
             try:
                 # Re-read with date parsing for found columns

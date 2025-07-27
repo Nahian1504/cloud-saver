@@ -8,7 +8,7 @@ from datetime import datetime
 import os
 from utils import validate_data
 
-# Configure logging before anything else
+# Configure logging 
 def setup_logging():
     """Configure logging for the module"""
     log_dir = "logs"
