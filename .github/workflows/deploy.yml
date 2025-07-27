@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  PYTHON_VERSION: '3.10'
+  PYTHON_VERSION: '3.11'
   MODEL_PATH: 'models/sac_agent.pth'
   SYNTHETIC_DATA_PATH: 'data/aws_synthetic_usage.csv'
   HYBRID_DATA_PATH: 'data/aws_hybrid_usage.csv'
