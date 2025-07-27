@@ -9,9 +9,9 @@ import logging
 
 # Setup logging
 logging.basicConfig(
-    filename='logs/sac_agent.log',
+    filename="logs/sac_agent.log",
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger()
 
@@ -19,8 +19,11 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # -------- Neural Networks --------
 
+
 class GaussianPolicy(nn.Module):
-    def __init__(self, state_dim, action_dim, hidden_dim=64, log_std_min=-20, log_std_max=2):
+    def __init__(
+        self, state_dim, action_dim, hidden_dim=64, log_std_min=-20, log_std_max=2
+    ):
         super(GaussianPolicy, self).__init__()
         self.log_std_min = log_std_min
         self.log_std_max = log_std_max
@@ -46,7 +49,7 @@ class GaussianPolicy(nn.Module):
         std = log_std.exp()
         normal = torch.distributions.Normal(mean, std)
         x_t = normal.rsample()  # reparameterization trick
-        y_t = torch.tanh(x_t)   # bounded actions between -1 and 1
+        y_t = torch.tanh(x_t)  # bounded actions between -1 and 1
         action = y_t
         log_prob = normal.log_prob(x_t) - torch.log(1 - y_t.pow(2) + 1e-6)
         log_prob = log_prob.sum(dim=1, keepdim=True)
@@ -62,7 +65,7 @@ class QNetwork(nn.Module):
             nn.ReLU(),
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
-            nn.Linear(hidden_dim, 1)
+            nn.Linear(hidden_dim, 1),
         )
 
     def forward(self, state, action):
@@ -72,6 +75,7 @@ class QNetwork(nn.Module):
 
 
 # -------- SAC Agent --------
+
 
 class SACAgent:
     def __init__(
@@ -122,7 +126,9 @@ class SACAgent:
             self.alpha = alpha
 
         self.learn_step = 0
-        logger.info(f"SAC Agent initialized with state_dim={state_dim}, action_dim={action_dim}")
+        logger.info(
+            f"SAC Agent initialized with state_dim={state_dim}, action_dim={action_dim}"
+        )
 
     def remember(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
@@ -186,13 +192,15 @@ class SACAgent:
 
         # --- Adjust alpha (entropy temperature) ---
         if self.automatic_entropy_tuning:
-            alpha_loss = -(self.log_alpha * (log_prob + self.target_entropy).detach()).mean()
+            alpha_loss = -(
+                self.log_alpha * (log_prob + self.target_entropy).detach()
+            ).mean()
             self.alpha_optimizer.zero_grad()
             alpha_loss.backward()
             self.alpha_optimizer.step()
             self.alpha = self.log_alpha.exp().item()
         else:
-            alpha_loss = torch.tensor(0.)
+            alpha_loss = torch.tensor(0.0)
 
         # --- Soft update target networks ---
         if self.learn_step % self.target_update_freq == 0:
@@ -202,40 +210,55 @@ class SACAgent:
 
         self.learn_step += 1
 
-        logger.info(f"Update step: {self.learn_step}, Policy Loss: {policy_loss.item():.4f}, Q1 Loss: {q1_loss.item():.4f}, Q2 Loss: {q2_loss.item():.4f}, Alpha Loss: {alpha_loss.item() if isinstance(alpha_loss, torch.Tensor) else alpha_loss:.4f}, Alpha: {self.alpha:.4f}")
+        logger.info(
+            f"Update step: {self.learn_step}, Policy Loss: {policy_loss.item():.4f}, Q1 Loss: {q1_loss.item():.4f}, Q2 Loss: {q2_loss.item():.4f}, Alpha Loss: {alpha_loss.item() if isinstance(alpha_loss, torch.Tensor) else alpha_loss:.4f}, Alpha: {self.alpha:.4f}"
+        )
 
     def soft_update(self, net, target_net):
         for param, target_param in zip(net.parameters(), target_net.parameters()):
-            target_param.data.copy_(self.tau * param.data + (1 - self.tau) * target_param.data)
+            target_param.data.copy_(
+                self.tau * param.data + (1 - self.tau) * target_param.data
+            )
 
     def save(self, path):
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        torch.save({
-            'policy_state_dict': self.policy.state_dict(),
-            'q1_state_dict': self.q1.state_dict(),
-            'q2_state_dict': self.q2.state_dict(),
-            'policy_optimizer_state_dict': self.policy_optimizer.state_dict(),
-            'q1_optimizer_state_dict': self.q1_optimizer.state_dict(),
-            'q2_optimizer_state_dict': self.q2_optimizer.state_dict(),
-            'log_alpha': self.log_alpha if self.automatic_entropy_tuning else None,
-            'alpha_optimizer_state_dict': self.alpha_optimizer.state_dict() if self.automatic_entropy_tuning else None,
-            'alpha': self.alpha,
-        }, path)
+        torch.save(
+            {
+                "policy_state_dict": self.policy.state_dict(),
+                "q1_state_dict": self.q1.state_dict(),
+                "q2_state_dict": self.q2.state_dict(),
+                "policy_optimizer_state_dict": self.policy_optimizer.state_dict(),
+                "q1_optimizer_state_dict": self.q1_optimizer.state_dict(),
+                "q2_optimizer_state_dict": self.q2_optimizer.state_dict(),
+                "log_alpha": self.log_alpha if self.automatic_entropy_tuning else None,
+                "alpha_optimizer_state_dict": (
+                    self.alpha_optimizer.state_dict()
+                    if self.automatic_entropy_tuning
+                    else None
+                ),
+                "alpha": self.alpha,
+            },
+            path,
+        )
         logger.info(f"SAC model saved to {path}")
 
     def load(self, path):
         if os.path.exists(path):
             checkpoint = torch.load(path, map_location=DEVICE)
-            self.policy.load_state_dict(checkpoint['policy_state_dict'])
-            self.q1.load_state_dict(checkpoint['q1_state_dict'])
-            self.q2.load_state_dict(checkpoint['q2_state_dict'])
-            self.policy_optimizer.load_state_dict(checkpoint['policy_optimizer_state_dict'])
-            self.q1_optimizer.load_state_dict(checkpoint['q1_optimizer_state_dict'])
-            self.q2_optimizer.load_state_dict(checkpoint['q2_optimizer_state_dict'])
+            self.policy.load_state_dict(checkpoint["policy_state_dict"])
+            self.q1.load_state_dict(checkpoint["q1_state_dict"])
+            self.q2.load_state_dict(checkpoint["q2_state_dict"])
+            self.policy_optimizer.load_state_dict(
+                checkpoint["policy_optimizer_state_dict"]
+            )
+            self.q1_optimizer.load_state_dict(checkpoint["q1_optimizer_state_dict"])
+            self.q2_optimizer.load_state_dict(checkpoint["q2_optimizer_state_dict"])
             if self.automatic_entropy_tuning:
-                self.log_alpha = checkpoint['log_alpha']
-                self.alpha_optimizer.load_state_dict(checkpoint['alpha_optimizer_state_dict'])
-            self.alpha = checkpoint.get('alpha', self.alpha)
+                self.log_alpha = checkpoint["log_alpha"]
+                self.alpha_optimizer.load_state_dict(
+                    checkpoint["alpha_optimizer_state_dict"]
+                )
+            self.alpha = checkpoint.get("alpha", self.alpha)
             logger.info(f"SAC model loaded from {path}")
         else:
             logger.warning(f"SAC model file {path} not found")
