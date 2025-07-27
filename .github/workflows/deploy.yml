@@ -59,6 +59,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install cachetools>=4.0,<5.0
         pip install -r documents/requirements.txt --upgrade
         pip install pytest pytest-cov pytest-mock
     
@@ -97,6 +98,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install cachetools>=4.0,<5.0
         pip install -r documents/requirements.txt --upgrade
         pip install torch scikit-learn pandas
     
@@ -144,6 +146,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install cachetools>=4.0,<5.0
         pip install -r documents/requirements.txt --upgrade
         pip install gunicorn
     

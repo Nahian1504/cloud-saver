@@ -36,7 +36,7 @@ requests==2.32.4
 # Cloud Services
 boto3==1.26.135
 google-cloud-bigquery==3.10.0
-cachetools==6.1.0
+cachetools>=4.0,<5.0
 db-dtypes==1.4.3
 
 # Utilities
