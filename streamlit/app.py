@@ -8,16 +8,33 @@ from cost_calculator import calculate_savings
 from pathlib import Path
 import os
 from datetime import datetime
+import sys
 
 # Configure logging
 log_dir = "logs"
 os.makedirs(log_dir, exist_ok=True)
 logging.basicConfig(
-    filename=os.path.join(log_dir, 'streamlit_app.log'),
+    handlers=[
+        logging.FileHandler(os.path.join(log_dir, f'streamlit_{datetime.now().strftime("%Y%m%d")}.log')),
+        logging.StreamHandler(sys.stdout)
+    ],
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(levelname)s - %(name)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+def find_data_file(filename):
+    """Search for data file in common locations"""
+    search_paths = [
+        Path("data") / filename,                     # Relative to project root
+        Path(__file__).parent.parent / "data" / filename,  # From streamlit/ folder
+        Path.home() / "cloud-saver" / "data" / filename,   # User home directory
+    ]
+    
+    for path in search_paths:
+        if path.exists():
+            return path
+    return None
 
 def main():
     st.set_page_config(
@@ -29,16 +46,35 @@ def main():
     logger.info("Initializing Streamlit dashboard")
     
     try:
-        # Get the correct data paths
-        current_dir = Path(__file__).parent
-        cost_data_path = current_dir.parent / "data" / "aws_hybrid_usage.csv"
-        spot_data_path = current_dir.parent / "data" / "aws_hybrid_spot_instances.csv"
+        # Data file discovery with fallback
+        cost_data_path = find_data_file("aws_hybrid_usage.csv")
+        spot_data_path = find_data_file("aws_hybrid_spot_instances.csv")
         
-        # Debug output (visible in the app)
-        st.sidebar.write("Debug Info:")
-        st.sidebar.write(f"Cost data path: {cost_data_path}")
-        st.sidebar.write(f"Spot data path: {spot_data_path}")
-        st.sidebar.write(f"File exists: {cost_data_path.exists()}")
+        # Debug panel
+        with st.sidebar.expander("Debug Information"):
+            st.write("Current directory:", Path.cwd())
+            st.write("Cost data path:", cost_data_path)
+            st.write("Spot data path:", spot_data_path)
+            st.write("File exists:", cost_data_path.exists() if cost_data_path else False)
+            
+            if st.button("Refresh Data"):
+                st.experimental_rerun()
+        
+        # Handle missing files
+        if not cost_data_path or not cost_data_path.exists():
+            missing_files = []
+            if not cost_data_path or not cost_data_path.exists():
+                missing_files.append("aws_hybrid_usage.csv")
+            if not spot_data_path or not spot_data_path.exists():
+                missing_files.append("aws_hybrid_spot_instances.csv")
+                
+            st.error(f"Missing data files: {', '.join(missing_files)}")
+            st.info(f"Search locations:\n1. {Path('data').absolute()}\n2. {Path(__file__).parent.parent / 'data'}")
+            
+            if st.checkbox("Generate sample data (temporary)"):
+                generate_sample_data()
+                st.experimental_rerun()
+            return
         
         # Load data with validation
         cost_data = load_data(cost_data_path)
@@ -48,6 +84,10 @@ def main():
             error_msg = "Invalid data format. Please check the logs."
             st.error(error_msg)
             logger.error(f"Data validation failed. Cost data columns: {cost_data.columns}, Spot data columns: {spot_data.columns}")
+            
+            with st.expander("Data Validation Details"):
+                st.write("Cost Data:", cost_data.head())
+                st.write("Spot Data:", spot_data.head())
             return
         
         # Dashboard Header
@@ -68,22 +108,45 @@ def main():
         with tab3:
             calculate_savings(cost_data)
             
-    except FileNotFoundError as e:
-        error_msg = f"Data file missing: {str(e)}"
-        logger.critical(error_msg, exc_info=True)
-        st.error(error_msg)
-        st.info(f"Please ensure your data files exist in: {current_dir.parent / 'data'}")
-        
     except Exception as e:
-        logger.error(f"Dashboard error: {str(e)}", exc_info=True)
-        st.error(f"An unexpected error occurred: {str(e)}")
+        logger.critical(f"Critical dashboard error: {str(e)}", exc_info=True)
+        st.error("A critical error occurred. Please check the logs.")
+        st.exception(e)
         st.stop()
+
+def generate_sample_data():
+    """Create sample data files for testing"""
+    data_dir = Path("data")
+    data_dir.mkdir(exist_ok=True)
+    
+    # Sample cost data
+    dates = pd.date_range(end=datetime.now(), periods=30)
+    cost_data = pd.DataFrame({
+        'usage_start_time': dates,
+        'cost': np.random.uniform(100, 500, 30),
+        'service': np.random.choice(['EC2', 'S3', 'RDS'], 30)
+    })
+    cost_data.to_csv(data_dir / "aws_hybrid_usage.csv", index=False)
+    
+    # Sample spot data
+    spot_data = pd.DataFrame({
+        'instance_type': np.random.choice(['m5.large', 'c5.xlarge', 'r5.2xlarge'], 50),
+        'duration_hours': np.random.exponential(10, 50),
+        'interrupted': np.random.binomial(1, 0.2, 50)
+    })
+    spot_data.to_csv(data_dir / "aws_hybrid_spot_instances.csv", index=False)
+    
+    st.success("Generated sample data in data/ directory")
 
 def render_cost_analysis(data):
     """Cost trend visualization"""
     logger.info("Rendering cost analysis")
     
     st.header("Cost Trend Analysis")
+    
+    with st.expander("Data Summary"):
+        st.write(f"Data from {data['usage_start_time'].min().date()} to {data['usage_start_time'].max().date()}")
+        st.write(data.describe())
     
     # Date range selector
     min_date = data['usage_start_time'].min().date()
@@ -101,13 +164,16 @@ def render_cost_analysis(data):
             (data['usage_start_time'].dt.date <= date_range[1])
         ]
         
+        if filtered.empty:
+            st.warning("No data in selected date range")
+            return
+        
         # Plotting
         fig, ax = plt.subplots(figsize=(10, 5))
-        if 'data_type' in filtered.columns:
-            for dtype, color in [('real', 'blue'), ('synthetic', 'orange')]:
-                subset = filtered[filtered['data_type'] == dtype]
-                if not subset.empty:
-                    ax.plot(subset['usage_start_time'], subset['cost'], label=dtype.capitalize(), color=color)
+        if 'service' in filtered.columns:
+            for service in filtered['service'].unique():
+                subset = filtered[filtered['service'] == service]
+                ax.plot(subset['usage_start_time'], subset['cost'], label=service)
             plt.legend()
         else:
             ax.plot(filtered['usage_start_time'], filtered['cost'])
@@ -135,36 +201,43 @@ def render_spot_optimizer(data):
     
     st.header("Spot Instance Optimization")
     
-    if 'duration_hours' not in data.columns or 'interrupted' not in data.columns:
-        st.error("Missing required columns in spot instance data")
-        logger.error("Missing columns in spot data")
+    required_cols = ['duration_hours', 'interrupted']
+    if not all(col in data.columns for col in required_cols):
+        st.error(f"Missing required columns: {set(required_cols) - set(data.columns)}")
+        logger.error(f"Missing columns in spot data: {data.columns}")
         return
     
-    # Survival analysis
-    from lifelines import KaplanMeierFitter
-    kmf = KaplanMeierFitter()
-    kmf.fit(data['duration_hours'], event_observed=data['interrupted'])
-    
-    fig, ax = plt.subplots(figsize=(10, 5))
-    kmf.plot_survival_function(ax=ax)
-    ax.set_title("Spot Instance Survival Probability")
-    ax.set_xlabel("Duration (hours)")
-    ax.set_ylabel("Survival Probability")
-    st.pyplot(fig)
-    
-    # Optimization recommendations
-    st.subheader("Optimization Recommendations")
-    if data['interrupted'].mean() > 0.3:
-        st.warning("High interruption rate detected (>{:.0%})".format(0.3))
-        st.markdown("""
-        - Consider diversifying across instance types
-        - Use Spot Blocks for critical workloads
-        - Monitor Spot Instance Advisor for capacity trends
-        """)
-    else:
-        st.success("Healthy spot instance performance")
+    try:
+        from lifelines import KaplanMeierFitter
+        kmf = KaplanMeierFitter()
+        kmf.fit(data['duration_hours'], event_observed=data['interrupted'])
         
-    logger.info("Spot instance analysis rendered")
+        fig, ax = plt.subplots(figsize=(10, 5))
+        kmf.plot_survival_function(ax=ax)
+        ax.set_title("Spot Instance Survival Probability")
+        ax.set_xlabel("Duration (hours)")
+        ax.set_ylabel("Survival Probability")
+        st.pyplot(fig)
+        
+        # Optimization recommendations
+        interruption_rate = data['interrupted'].mean()
+        st.subheader("Optimization Recommendations")
+        if interruption_rate > 0.3:
+            st.warning(f"High interruption rate detected ({interruption_rate:.0%})")
+            st.markdown("""
+            - Consider diversifying across instance types
+            - Use Spot Blocks for critical workloads
+            - Monitor Spot Instance Advisor for capacity trends
+            """)
+        else:
+            st.success(f"Healthy spot instance performance (interruption rate: {interruption_rate:.0%})")
+            
+        logger.info("Spot instance analysis rendered")
+    except ImportError:
+        st.error("Please install lifelines: pip install lifelines")
+    except Exception as e:
+        logger.error(f"Spot analysis failed: {str(e)}", exc_info=True)
+        st.error("Error in spot instance analysis")
 
 if __name__ == "__main__":
     main()

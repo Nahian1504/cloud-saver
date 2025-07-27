@@ -58,3 +58,47 @@ Traceback (most recent call last):
   File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 13, in load_data
     raise FileNotFoundError(f"Data file {file_path} does not exist")
 FileNotFoundError: Data file data/aws_hybrid_usage.csv does not exist
+2025-07-27 06:48:50 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 06:48:50 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 06:48:50 - ERROR - utils - File not found: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
+Directory contents: []
+2025-07-27 06:48:50 - ERROR - utils - Failed to load aws_hybrid_usage.csv: FileNotFoundError
+Error: Data file not found at: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
+Available files: []
+File size: 0 bytes
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 36, in load_data
+    raise FileNotFoundError(
+FileNotFoundError: Data file not found at: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
+Available files: []
+2025-07-27 06:48:50 - CRITICAL - __main__ - Data file missing: Data file not found at: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
+Available files: []
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\app.py", line 44, in main
+    cost_data = load_data(cost_data_path)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 36, in load_data
+    raise FileNotFoundError(
+FileNotFoundError: Data file not found at: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
+Available files: []
+2025-07-27 06:48:51 - ERROR - utils - File not found: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
+Directory contents: []
+2025-07-27 06:48:51 - ERROR - utils - Failed to load aws_hybrid_usage.csv: FileNotFoundError
+Error: Data file not found at: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
+Available files: []
+File size: 0 bytes
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 36, in load_data
+    raise FileNotFoundError(
+FileNotFoundError: Data file not found at: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
+Available files: []
+2025-07-27 06:48:51 - CRITICAL - __main__ - Data file missing: Data file not found at: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
+Available files: []
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\app.py", line 44, in main
+    cost_data = load_data(cost_data_path)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 36, in load_data
+    raise FileNotFoundError(
+FileNotFoundError: Data file not found at: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
+Available files: []
