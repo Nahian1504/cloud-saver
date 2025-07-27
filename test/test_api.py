@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 @pytest.fixture
 def client():
     """Test client fixture with mock SAC agent"""
-    with patch("api.main.agent") as mock_agent:
+    with patch("api.main.sac_agent") as mock_agent:
         # Configure mock agent
         mock_agent.STATE_DIM = 10
         mock_agent.ACTION_DIM = 2
