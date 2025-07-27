@@ -32,6 +32,7 @@ blinker==1.9.0
 Jinja2==3.1.6
 MarkupSafe==3.0.2
 requests==2.32.4
+werkzeug==2.3.7
 
 
 # Cloud Services
