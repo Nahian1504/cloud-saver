@@ -1,3 +1,3 @@
-2025-07-24 22:42:24,829 - INFO - Fetching spot instance requests...
-2025-07-24 22:42:24,855 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
-2025-07-24 22:42:25,437 - WARNING - No valid spot instance data retrieved.
+version https://git-lfs.github.com/spec/v1
+oid sha256:b3655efab936e765dbc7029ea96702c6271a9e8725ae71124ae0ec73a858e834
+size 244

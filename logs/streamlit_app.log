@@ -1,24 +1,3 @@
-2025-07-27 05:16:23,895 - INFO - Initializing Streamlit dashboard
-2025-07-27 05:16:23,900 - INFO - Successfully loaded data from data/aws_hybrid_usage.csv
-2025-07-27 05:16:23,901 - INFO - Successfully loaded data from data/aws_hybrid_spot_instances.csv
-2025-07-27 05:16:23,901 - WARNING - Negative costs detected in data
-2025-07-27 05:16:24,064 - INFO - Rendering cost analysis
-2025-07-27 05:16:24,313 - INFO - Cost analysis rendered successfully
-2025-07-27 05:16:24,314 - INFO - Rendering spot instance optimizer
-2025-07-27 05:16:25,249 - INFO - Spot instance analysis rendered
-2025-07-27 05:16:25,249 - INFO - Initializing savings calculator
-2025-07-27 05:16:25,252 - WARNING - Negative costs detected in data
-2025-07-27 05:16:25,255 - ERROR - Savings calculator error: The `value` 5.999999999999997 is less than the `min_value` 1000.0.
-Traceback (most recent call last):
-  File "c:\Users\Asus-PC\cloud-saver\streamlit\cost_calculator.py", line 23, in calculate_savings
-    current_spend = col1.number_input(
-                    ^^^^^^^^^^^^^^^^^^
-  File "C:\ProgramData\miniconda3\envs\cloud-saver\Lib\site-packages\streamlit\runtime\metrics_util.py", line 443, in wrapped_func
-    result = non_optional_func(*args, **kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\ProgramData\miniconda3\envs\cloud-saver\Lib\site-packages\streamlit\elements\widgets\number_input.py", line 401, in number_input
-    return self._number_input(
-           ^^^^^^^^^^^^^^^^^^^
-  File "C:\ProgramData\miniconda3\envs\cloud-saver\Lib\site-packages\streamlit\elements\widgets\number_input.py", line 542, in _number_input
-    raise StreamlitValueBelowMinError(value=value, min_value=min_value)
-streamlit.errors.StreamlitValueBelowMinError: The `value` 5.999999999999997 is less than the `min_value` 1000.0.
+version https://git-lfs.github.com/spec/v1
+oid sha256:2d68950e82d8e456ea92e9c9003f7cc0fe69a7dac9200bded9ae1a68107a5354
+size 1829
