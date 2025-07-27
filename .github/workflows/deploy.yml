@@ -18,16 +18,27 @@ jobs:
     name: Setup and Lint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
     
     - name: Create directories
       run: |
         mkdir -p ${{ env.LOG_DIR }}
         mkdir -p models
         mkdir -p data
+    
+    - name: Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/pip
+          venv/
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
     
     - name: Install lint dependencies
       run: |
@@ -51,10 +62,21 @@ jobs:
         test-type: ["unit", "api"]
     
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/pip
+          venv/
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
     
     - name: Install dependencies
       run: |
@@ -82,7 +104,7 @@ jobs:
     
     - name: Generate synthetic test data
       run: |
-        python data/generate_aws_hybrid_usage.py  # Generates test data if needed
+        python data/generate_aws_hybrid_usage.py
         head -n 100 ${{ env.HYBRID_DATA_PATH }} > ${{ env.HYBRID_DATA_PATH }}.test
         mv ${{ env.HYBRID_DATA_PATH }}.test ${{ env.HYBRID_DATA_PATH }}
         wc -l ${{ env.HYBRID_DATA_PATH }}
@@ -96,7 +118,7 @@ jobs:
         fi
     
     - name: Upload coverage
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         files: ./coverage.xml
         flags: ${{ matrix.test-type }}
@@ -107,10 +129,21 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/pip
+          venv/
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
     
     - name: Install dependencies
       run: |
@@ -135,7 +168,7 @@ jobs:
           --output data/sac_vs_heuristic_comparison.csv
     
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: training-artifacts
         path: |
@@ -149,13 +182,24 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/pip
+          venv/
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
     
     - name: Download artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: training-artifacts
         path: ./
@@ -190,4 +234,3 @@ jobs:
       if: false  # Set to true when AWS credentials are configured
       run: |
         echo "AWS deployment would happen here"
-        # Add your AWS deployment commands
