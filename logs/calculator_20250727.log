@@ -1,0 +1,11 @@
+2025-07-27 06:12:23 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 06:12:23 - INFO - utils - Successfully loaded data from data/aws_hybrid_usage.csv
+2025-07-27 06:12:23 - INFO - utils - Successfully loaded data from data/aws_hybrid_spot_instances.csv
+2025-07-27 06:12:23 - WARNING - utils - Negative costs detected in data
+2025-07-27 06:12:23 - INFO - __main__ - Rendering cost analysis
+2025-07-27 06:12:24 - INFO - __main__ - Cost analysis rendered successfully
+2025-07-27 06:12:24 - INFO - __main__ - Rendering spot instance optimizer
+2025-07-27 06:12:25 - INFO - __main__ - Spot instance analysis rendered
+2025-07-27 06:12:25 - INFO - cost_calculator - Initializing savings calculator
+2025-07-27 06:12:25 - WARNING - utils - Negative costs detected in data
+2025-07-27 06:12:25 - INFO - cost_calculator - Successfully calculated savings: $250.00/month at Medium level
