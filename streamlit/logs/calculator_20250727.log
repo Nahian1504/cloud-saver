@@ -258,3 +258,25 @@ Traceback (most recent call last):
   File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\base_parser.py", line 243, in _validate_parse_dates_presence
     raise ValueError(
 ValueError: Missing column provided to 'parse_dates': 'date'
+2025-07-27 06:58:03 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 06:58:04 - INFO - utils - Successfully loaded 62 records from aws_hybrid_usage.csv
+Columns: ['service', 'cost', 'usage', 'data_type', 'usage_start_time']
+Date columns detected: ['usage_start_time']
+Date range: 2025-07-22 00:00:00 to 2025-08-21 00:00:00
+2025-07-27 06:58:04 - ERROR - utils - Failed to load aws_hybrid_spot_instances.csv: UnboundLocalError
+Error: cannot access local variable 'primary_date_col' where it is not associated with a value
+File size: 3478 bytes
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 79, in load_data
+    f"Date range: {df[primary_date_col].min()} to {df[primary_date_col].max() if 'primary_date_col' in locals() else 'N/A'}"
+                      ^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'primary_date_col' where it is not associated with a value
+2025-07-27 06:58:04 - CRITICAL - __main__ - Critical dashboard error: cannot access local variable 'primary_date_col' where it is not associated with a value
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\app.py", line 81, in main
+    spot_data = load_data(spot_data_path)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 79, in load_data
+    f"Date range: {df[primary_date_col].min()} to {df[primary_date_col].max() if 'primary_date_col' in locals() else 'N/A'}"
+                      ^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'primary_date_col' where it is not associated with a value

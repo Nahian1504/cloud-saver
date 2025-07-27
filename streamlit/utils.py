@@ -47,6 +47,7 @@ def load_data(file_path):
         # Safe date column handling
         date_cols_to_try = ['usage_start_time', 'date', 'timestamp']
         found_date_cols = [col for col in date_cols_to_try if col in df.columns]
+        primary_date_col = None
         
         # If we found potential date columns, try parsing them
         if found_date_cols:
@@ -72,11 +73,20 @@ def load_data(file_path):
                     "Continuing without datetime conversion."
                 )
         
+        # Prepare date range info for logging
+        date_range_info = ""
+        if primary_date_col:
+            date_range_info = (
+                f"Date range: {df[primary_date_col].min()} to {df[primary_date_col].max()}"
+            )
+        else:
+            date_range_info = "No date column available for range calculation"
+        
         logger.info(
             f"Successfully loaded {len(df)} records from {path.name}\n"
             f"Columns: {list(df.columns)}\n"
             f"Date columns detected: {found_date_cols}\n"
-            f"Date range: {df[primary_date_col].min()} to {df[primary_date_col].max() if 'primary_date_col' in locals() else 'N/A'}"
+            f"{date_range_info}"
         )
         
         return df
