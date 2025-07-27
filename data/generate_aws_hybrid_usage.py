@@ -211,7 +211,7 @@ def enhance_spot_data(real_spot_file=None):
 
 spot_df = enhance_spot_data()  # Pass path if real spot data exists
 output_path_spot = os.path.join("data", "aws_hybrid_spot_instances.csv")
-spot_df.to_csv(output_path_spot, index=False)
+spot_df.to_csv(output_path_spot, index=False, encoding='utf-8', date_format='%Y-%m-%d %H:%M:%S')
 
 logger.info(f"Saved enhanced spot instance data to: {output_path_spot}")
 
