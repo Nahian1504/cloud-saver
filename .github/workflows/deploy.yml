@@ -1,0 +1,173 @@
+name: Cloud-Saver CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  PYTHON_VERSION: '3.10'
+  MODEL_PATH: 'models/sac_agent.pth'
+  SYNTHETIC_DATA_PATH: 'data/aws_synthetic_usage.csv'
+  HYBRID_DATA_PATH: 'data/aws_hybrid_usage.csv'
+  LOG_DIR: 'logs/'
+
+jobs:
+  setup:
+    name: Setup and Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Create directories
+      run: |
+        mkdir -p ${{ env.LOG_DIR }}
+        mkdir -p models
+        mkdir -p data
+    
+    - name: Install lint dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black
+    
+    - name: Run flake8
+      run: |
+        flake8 api/ tests/ models/ analysis/ --count --select=E9,F63,F7,F82 --show-source --statistics
+    
+    - name: Run black
+      run: |
+        black --check api/ tests/ models/ analysis/
+
+  test:
+    name: Run Tests
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test-type: ["unit", "api"]
+    
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r documents/requirements.txt
+        pip install pytest pytest-cov pytest-mock
+    
+    - name: Generate synthetic test data
+      run: |
+        python data/generate_aws_hybrid_usage.py  # Generates test data if needed
+        head -n 100 ${{ env.HYBRID_DATA_PATH }} > ${{ env.HYBRID_DATA_PATH }}.test
+        mv ${{ env.HYBRID_DATA_PATH }}.test ${{ env.HYBRID_DATA_PATH }}
+        wc -l ${{ env.HYBRID_DATA_PATH }}
+    
+    - name: Run tests
+      run: |
+        if [ "${{ matrix.test-type }}" = "unit" ]; then
+          pytest tests/test_sac_agent.py -v --cov=models --cov-report=xml
+        else
+          pytest tests/test_api.py -v --cov=api --cov-report=xml
+        fi
+    
+    - name: Upload coverage
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage.xml
+        flags: ${{ matrix.test-type }}
+
+  train:
+    name: Train and Benchmark
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r documents/requirements.txt
+        pip install torch scikit-learn pandas
+    
+    - name: Train SAC model
+      run: |
+        python analysis/train_sac_agent.py \
+          --train-data ${{ env.SYNTHETIC_DATA_PATH }} \
+          --test-data ${{ env.HYBRID_DATA_PATH }} \
+          --model-save-path ${{ env.MODEL_PATH }} \
+          --log-dir ${{ env.LOG_DIR }}
+    
+    - name: Run benchmark
+      run: |
+        python analysis/benchmark_sac_vs_heuristic.py \
+          --data ${{ env.HYBRID_DATA_PATH }} \
+          --model ${{ env.MODEL_PATH }} \
+          --output data/sac_vs_heuristic_comparison.csv
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: training-artifacts
+        path: |
+          ${{ env.MODEL_PATH }}
+          data/sac_vs_heuristic_comparison.csv
+          ${{ env.LOG_DIR }}/sac_agent.log
+
+  deploy:
+    name: Deploy API
+    needs: train
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Download artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: training-artifacts
+        path: ./
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r documents/requirements.txt
+        pip install gunicorn
+    
+    - name: Start API server
+      run: |
+        nohup gunicorn -b 0.0.0.0:5000 \
+          --access-logfile ${{ env.LOG_DIR }}/api.log \
+          --error-logfile ${{ env.LOG_DIR }}/api_error.log \
+          --timeout 120 \
+          api.main:app &
+    
+    - name: Run smoke tests
+      run: |
+        # Basic health check
+        curl --retry 5 --retry-delay 5 --retry-connrefused http://localhost:5000/health
+        
+        # Test prediction endpoint with sample data
+        SAMPLE_INSTANCE=$(jq -n --arg id "i-12345" '{instance_id: $id}')
+        curl -X POST http://localhost:5000/predict \
+          -H "Content-Type: application/json" \
+          -d "$SAMPLE_INSTANCE"
+    
+    - name: Deploy to AWS (optional)
+      if: false  # Set to true when AWS credentials are configured
+      run: |
+        echo "AWS deployment would happen here"
+        # Add your AWS deployment commands

@@ -5,7 +5,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from models.sac_agent_model import SACAgent  # Your SAC implementation
+from models.sac_agent_model import SACAgent  # SAC implementation
 
 logging.basicConfig(
     filename='logs/train_sac_agent.log',
