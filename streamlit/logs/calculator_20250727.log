@@ -102,3 +102,159 @@ Traceback (most recent call last):
     raise FileNotFoundError(
 FileNotFoundError: Data file not found at: C:\Users\Asus-PC\cloud-saver\streamlit\data\aws_hybrid_usage.csv
 Available files: []
+2025-07-27 06:54:35 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 06:54:35 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 06:54:35 - ERROR - utils - Failed to load aws_hybrid_usage.csv: ValueError
+Error: Missing column provided to 'parse_dates': 'date'
+File size: 3019 bytes
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 42, in load_data
+    df = pd.read_csv(
+         ^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1898, in _make_engine
+    return mapping[engine](f, **self.options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 161, in __init__
+    self._validate_parse_dates_presence(self.names)  # type: ignore[has-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\base_parser.py", line 243, in _validate_parse_dates_presence
+    raise ValueError(
+ValueError: Missing column provided to 'parse_dates': 'date'
+2025-07-27 06:54:35 - CRITICAL - __main__ - Critical dashboard error: Missing column provided to 'parse_dates': 'date'
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\app.py", line 80, in main
+    cost_data = load_data(cost_data_path)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 42, in load_data
+    df = pd.read_csv(
+         ^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1898, in _make_engine
+    return mapping[engine](f, **self.options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 161, in __init__
+    self._validate_parse_dates_presence(self.names)  # type: ignore[has-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\base_parser.py", line 243, in _validate_parse_dates_presence
+    raise ValueError(
+ValueError: Missing column provided to 'parse_dates': 'date'
+2025-07-27 06:54:35 - ERROR - utils - Failed to load aws_hybrid_usage.csv: ValueError
+Error: Missing column provided to 'parse_dates': 'date'
+File size: 3019 bytes
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 42, in load_data
+    df = pd.read_csv(
+         ^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1898, in _make_engine
+    return mapping[engine](f, **self.options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 161, in __init__
+    self._validate_parse_dates_presence(self.names)  # type: ignore[has-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\base_parser.py", line 243, in _validate_parse_dates_presence
+    raise ValueError(
+ValueError: Missing column provided to 'parse_dates': 'date'
+2025-07-27 06:54:35 - CRITICAL - __main__ - Critical dashboard error: Missing column provided to 'parse_dates': 'date'
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\app.py", line 80, in main
+    cost_data = load_data(cost_data_path)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 42, in load_data
+    df = pd.read_csv(
+         ^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1898, in _make_engine
+    return mapping[engine](f, **self.options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 161, in __init__
+    self._validate_parse_dates_presence(self.names)  # type: ignore[has-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\base_parser.py", line 243, in _validate_parse_dates_presence
+    raise ValueError(
+ValueError: Missing column provided to 'parse_dates': 'date'
+2025-07-27 06:54:38 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 06:54:38 - ERROR - utils - Failed to load aws_hybrid_usage.csv: ValueError
+Error: Missing column provided to 'parse_dates': 'date'
+File size: 3019 bytes
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 42, in load_data
+    df = pd.read_csv(
+         ^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1898, in _make_engine
+    return mapping[engine](f, **self.options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 161, in __init__
+    self._validate_parse_dates_presence(self.names)  # type: ignore[has-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\base_parser.py", line 243, in _validate_parse_dates_presence
+    raise ValueError(
+ValueError: Missing column provided to 'parse_dates': 'date'
+2025-07-27 06:54:38 - CRITICAL - __main__ - Critical dashboard error: Missing column provided to 'parse_dates': 'date'
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\app.py", line 80, in main
+    cost_data = load_data(cost_data_path)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 42, in load_data
+    df = pd.read_csv(
+         ^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\readers.py", line 1898, in _make_engine
+    return mapping[engine](f, **self.options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 161, in __init__
+    self._validate_parse_dates_presence(self.names)  # type: ignore[has-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pandas\io\parsers\base_parser.py", line 243, in _validate_parse_dates_presence
+    raise ValueError(
+ValueError: Missing column provided to 'parse_dates': 'date'

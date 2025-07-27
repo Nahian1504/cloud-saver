@@ -38,32 +38,45 @@ def load_data(file_path):
                 f"Available files: {available_files}"
             )
         
-        # Load data with datetime parsing
-        df = pd.read_csv(
-            path,
-            parse_dates=['usage_start_time', 'date'],
-            infer_datetime_format=True,
-            dayfirst=False,
-            on_bad_lines='warn'
-        )
+        # First read without date parsing to check columns
+        df = pd.read_csv(path, on_bad_lines='warn')
         
         # Standardize column names
         df.columns = df.columns.str.lower().str.replace(' ', '_')
         
-        # Date column handling
-        date_col = next(
-            (col for col in ['usage_start_time', 'date', 'timestamp'] 
-            if col in df.columns),
-            None
-        )
-        if date_col:
-            df[date_col] = pd.to_datetime(df[date_col])
-            df.sort_values(date_col, inplace=True)
+        # Safe date column handling
+        date_cols_to_try = ['usage_start_time', 'date', 'timestamp']
+        found_date_cols = [col for col in date_cols_to_try if col in df.columns]
+        
+        # If we found potential date columns, try parsing them
+        if found_date_cols:
+            try:
+                # Re-read with date parsing for found columns
+                df = pd.read_csv(
+                    path,
+                    parse_dates=found_date_cols,
+                    infer_datetime_format=True,
+                    dayfirst=False,
+                    on_bad_lines='warn'
+                )
+                
+                # Ensure datetime conversion worked
+                for col in found_date_cols:
+                    if pd.api.types.is_datetime64_any_dtype(df[col]):
+                        df = df.sort_values(col)
+                        primary_date_col = col
+                        break
+            except Exception as date_parse_error:
+                logger.warning(
+                    f"Date parsing failed for columns {found_date_cols}: {date_parse_error}\n"
+                    "Continuing without datetime conversion."
+                )
         
         logger.info(
             f"Successfully loaded {len(df)} records from {path.name}\n"
             f"Columns: {list(df.columns)}\n"
-            f"Date range: {df[date_col].min()} to {df[date_col].max() if date_col else 'N/A'}"
+            f"Date columns detected: {found_date_cols}\n"
+            f"Date range: {df[primary_date_col].min()} to {df[primary_date_col].max() if 'primary_date_col' in locals() else 'N/A'}"
         )
         
         return df
