@@ -63,17 +63,22 @@ jobs:
         pip install -r documents/requirements.txt --upgrade
         pip install pytest pytest-cov pytest-mock
 
-    - name: Verify input file exists
+    - name: Verify and create input file
       run: |
-        echo "Checking aws_cost_export.csv..."
-        if [ ! -f "data/aws_cost_export.csv" ]; then
-          echo "File missing! Creating a minimal version..."
-          mkdir -p data
-          echo "date,service,cost,usage" > data/aws_cost_export.csv
-          echo "2025-07-22,AWS CloudShell,6.23e-08,0.0043636076" >> data/aws_cost_export.csv
-          echo "2025-07-22,AWS Data Transfer,-6.23e-08,0.0" >> data/aws_cost_export.csv
-        fi
-        cat data/aws_cost_export.csv  # Debug output
+        echo "Current working directory: $(pwd)"
+        echo "Contents of data directory:"
+        ls -la data/ || echo "No data directory exists"
+        
+        echo "Creating aws_cost_export.csv..."
+        mkdir -p data
+        echo "date,service,cost,usage" > data/aws_cost_export.csv
+        echo "2025-07-22,AWS CloudShell,6.23e-08,0.0043636076" >> data/aws_cost_export.csv
+        echo "2025-07-22,AWS Data Transfer,-6.23e-08,0.0" >> data/aws_cost_export.csv
+        
+        echo "File contents:"
+        cat data/aws_cost_export.csv
+        echo "File exists check:"
+        [ -f "data/aws_cost_export.csv" ] && echo "File exists" || echo "File missing"
     
     - name: Generate synthetic test data
       run: |
