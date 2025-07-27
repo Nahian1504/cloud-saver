@@ -83,7 +83,7 @@ def test_predict_invalid_dimensions(client):
 
 def test_logging_output(client, caplog):
     """Test that the API logs properly"""
-    with caplog.at_level(logging.INFO):
+    with caplog.at_level(logging.DEBUG):
         client.get("/health")
         assert "Health check requested" in caplog.text
 
