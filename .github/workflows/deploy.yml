@@ -36,11 +36,11 @@ jobs:
     
     - name: Run flake8
       run: |
-        flake8 api/ tests/ models/ analysis/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 api/ test/ models/ analysis/ --count --select=E9,F63,F7,F82 --show-source --statistics
     
     - name: Run black
       run: |
-        black --check api/ tests/ models/ analysis/
+        black --check api/ test/ models/ analysis/
 
   test:
     name: Run Tests
@@ -72,9 +72,9 @@ jobs:
     - name: Run tests
       run: |
         if [ "${{ matrix.test-type }}" = "unit" ]; then
-          pytest tests/test_sac_agent.py -v --cov=models --cov-report=xml
+          pytest test/test_sac_agent.py -v --cov=models --cov-report=xml
         else
-          pytest tests/test_api.py -v --cov=api --cov-report=xml
+          pytest test/test_api.py -v --cov=api --cov-report=xml
         fi
     
     - name: Upload coverage
