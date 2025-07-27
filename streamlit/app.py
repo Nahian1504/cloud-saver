@@ -9,6 +9,8 @@ from pathlib import Path
 import os
 from datetime import datetime
 import sys
+st.write("Python executable:", sys.executable)
+st.write("Installed packages:", sorted(sys.modules.keys()))
 
 # Configure logging
 log_dir = "logs"

@@ -296,3 +296,131 @@ No date column available for range calculation
 2025-07-27 07:01:28 - INFO - cost_calculator - Initializing savings calculator
 2025-07-27 07:01:28 - WARNING - utils - Negative costs detected in data
 2025-07-27 07:01:28 - INFO - cost_calculator - Successfully calculated savings: $250.00/month at Medium level
+2025-07-27 07:14:55 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 07:14:55 - INFO - utils - Successfully loaded 62 records from aws_hybrid_usage.csv
+Columns: ['service', 'cost', 'usage', 'data_type', 'usage_start_time']
+Date columns detected: ['usage_start_time']
+Date range: 2025-07-22 00:00:00 to 2025-08-21 00:00:00
+2025-07-27 07:14:55 - INFO - utils - Successfully loaded 50 records from aws_hybrid_spot_instances.csv
+Columns: ['instance_id', 'launch_time', 'duration_hours', 'interrupted', 'data_type']
+Date columns detected: []
+No date column available for range calculation
+2025-07-27 07:14:55 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:14:55 - INFO - __main__ - Rendering cost analysis
+2025-07-27 07:14:55 - INFO - __main__ - Cost analysis rendered successfully
+2025-07-27 07:14:55 - INFO - __main__ - Rendering spot instance optimizer
+2025-07-27 07:14:55 - INFO - cost_calculator - Initializing savings calculator
+2025-07-27 07:14:55 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:14:56 - INFO - cost_calculator - Successfully calculated savings: $250.00/month at Medium level
+2025-07-27 07:16:58 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 07:16:58 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 07:16:58 - INFO - utils - Successfully loaded 62 records from aws_hybrid_usage.csv
+Columns: ['service', 'cost', 'usage', 'data_type', 'usage_start_time']
+Date columns detected: ['usage_start_time']
+Date range: 2025-07-22 00:00:00 to 2025-08-21 00:00:00
+2025-07-27 07:16:58 - INFO - utils - Successfully loaded 50 records from aws_hybrid_spot_instances.csv
+Columns: ['instance_id', 'launch_time', 'duration_hours', 'interrupted', 'data_type']
+Date columns detected: []
+No date column available for range calculation
+2025-07-27 07:16:58 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:16:58 - INFO - __main__ - Rendering cost analysis
+2025-07-27 07:16:58 - INFO - __main__ - Cost analysis rendered successfully
+2025-07-27 07:16:58 - INFO - __main__ - Rendering spot instance optimizer
+2025-07-27 07:16:58 - INFO - cost_calculator - Initializing savings calculator
+2025-07-27 07:16:58 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:16:58 - INFO - utils - Successfully loaded 62 records from aws_hybrid_usage.csv
+Columns: ['service', 'cost', 'usage', 'data_type', 'usage_start_time']
+Date columns detected: ['usage_start_time']
+Date range: 2025-07-22 00:00:00 to 2025-08-21 00:00:00
+2025-07-27 07:16:58 - INFO - utils - Successfully loaded 50 records from aws_hybrid_spot_instances.csv
+Columns: ['instance_id', 'launch_time', 'duration_hours', 'interrupted', 'data_type']
+Date columns detected: []
+No date column available for range calculation
+2025-07-27 07:16:58 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:16:58 - INFO - __main__ - Rendering cost analysis
+2025-07-27 07:16:59 - INFO - cost_calculator - Successfully calculated savings: $250.00/month at Medium level
+2025-07-27 07:16:59 - INFO - __main__ - Cost analysis rendered successfully
+2025-07-27 07:16:59 - INFO - __main__ - Rendering spot instance optimizer
+2025-07-27 07:16:59 - INFO - cost_calculator - Initializing savings calculator
+2025-07-27 07:16:59 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:16:59 - INFO - cost_calculator - Successfully calculated savings: $250.00/month at Medium level
+2025-07-27 07:17:00 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 07:17:00 - INFO - utils - Successfully loaded 62 records from aws_hybrid_usage.csv
+Columns: ['service', 'cost', 'usage', 'data_type', 'usage_start_time']
+Date columns detected: ['usage_start_time']
+Date range: 2025-07-22 00:00:00 to 2025-08-21 00:00:00
+2025-07-27 07:17:00 - INFO - utils - Successfully loaded 50 records from aws_hybrid_spot_instances.csv
+Columns: ['instance_id', 'launch_time', 'duration_hours', 'interrupted', 'data_type']
+Date columns detected: []
+No date column available for range calculation
+2025-07-27 07:17:00 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:17:00 - INFO - __main__ - Rendering cost analysis
+2025-07-27 07:17:01 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 07:17:01 - INFO - utils - Successfully loaded 62 records from aws_hybrid_usage.csv
+Columns: ['service', 'cost', 'usage', 'data_type', 'usage_start_time']
+Date columns detected: ['usage_start_time']
+Date range: 2025-07-22 00:00:00 to 2025-08-21 00:00:00
+2025-07-27 07:17:01 - INFO - utils - Successfully loaded 50 records from aws_hybrid_spot_instances.csv
+Columns: ['instance_id', 'launch_time', 'duration_hours', 'interrupted', 'data_type']
+Date columns detected: []
+No date column available for range calculation
+2025-07-27 07:17:01 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:17:01 - INFO - __main__ - Rendering cost analysis
+2025-07-27 07:17:01 - INFO - __main__ - Cost analysis rendered successfully
+2025-07-27 07:17:01 - INFO - __main__ - Rendering spot instance optimizer
+2025-07-27 07:17:01 - INFO - cost_calculator - Initializing savings calculator
+2025-07-27 07:17:01 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:17:01 - INFO - __main__ - Cost analysis rendered successfully
+2025-07-27 07:17:01 - INFO - __main__ - Rendering spot instance optimizer
+2025-07-27 07:17:01 - INFO - cost_calculator - Initializing savings calculator
+2025-07-27 07:17:01 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:17:01 - INFO - cost_calculator - Successfully calculated savings: $250.00/month at Medium level
+2025-07-27 07:17:01 - INFO - cost_calculator - Successfully calculated savings: $250.00/month at Medium level
+2025-07-27 07:17:02 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 07:17:02 - INFO - utils - Successfully loaded 62 records from aws_hybrid_usage.csv
+Columns: ['service', 'cost', 'usage', 'data_type', 'usage_start_time']
+Date columns detected: ['usage_start_time']
+Date range: 2025-07-22 00:00:00 to 2025-08-21 00:00:00
+2025-07-27 07:17:02 - INFO - utils - Successfully loaded 50 records from aws_hybrid_spot_instances.csv
+Columns: ['instance_id', 'launch_time', 'duration_hours', 'interrupted', 'data_type']
+Date columns detected: []
+No date column available for range calculation
+2025-07-27 07:17:02 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:17:02 - INFO - __main__ - Rendering cost analysis
+2025-07-27 07:17:02 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 07:17:02 - INFO - utils - Successfully loaded 62 records from aws_hybrid_usage.csv
+Columns: ['service', 'cost', 'usage', 'data_type', 'usage_start_time']
+Date columns detected: ['usage_start_time']
+Date range: 2025-07-22 00:00:00 to 2025-08-21 00:00:00
+2025-07-27 07:17:02 - INFO - utils - Successfully loaded 50 records from aws_hybrid_spot_instances.csv
+Columns: ['instance_id', 'launch_time', 'duration_hours', 'interrupted', 'data_type']
+Date columns detected: []
+No date column available for range calculation
+2025-07-27 07:17:02 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:17:02 - INFO - __main__ - Rendering cost analysis
+2025-07-27 07:17:03 - INFO - __main__ - Cost analysis rendered successfully
+2025-07-27 07:17:03 - INFO - __main__ - Rendering spot instance optimizer
+2025-07-27 07:17:03 - INFO - cost_calculator - Initializing savings calculator
+2025-07-27 07:17:03 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:17:03 - INFO - __main__ - Cost analysis rendered successfully
+2025-07-27 07:17:03 - INFO - __main__ - Rendering spot instance optimizer
+2025-07-27 07:17:03 - INFO - cost_calculator - Initializing savings calculator
+2025-07-27 07:17:03 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:17:03 - INFO - cost_calculator - Successfully calculated savings: $250.00/month at Medium level
+2025-07-27 07:17:03 - INFO - cost_calculator - Successfully calculated savings: $250.00/month at Medium level
+2025-07-27 07:17:04 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 07:17:04 - INFO - utils - Successfully loaded 62 records from aws_hybrid_usage.csv
+Columns: ['service', 'cost', 'usage', 'data_type', 'usage_start_time']
+Date columns detected: ['usage_start_time']
+Date range: 2025-07-22 00:00:00 to 2025-08-21 00:00:00
+2025-07-27 07:17:04 - INFO - utils - Successfully loaded 50 records from aws_hybrid_spot_instances.csv
+Columns: ['instance_id', 'launch_time', 'duration_hours', 'interrupted', 'data_type']
+Date columns detected: []
+No date column available for range calculation
+2025-07-27 07:17:04 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:17:04 - INFO - __main__ - Rendering cost analysis
+2025-07-27 07:17:05 - INFO - __main__ - Cost analysis rendered successfully
+2025-07-27 07:17:05 - INFO - __main__ - Rendering spot instance optimizer
+2025-07-27 07:17:05 - INFO - cost_calculator - Initializing savings calculator
+2025-07-27 07:17:05 - WARNING - utils - Negative costs detected in data
+2025-07-27 07:17:05 - INFO - cost_calculator - Successfully calculated savings: $250.00/month at Medium level
