@@ -14,6 +14,7 @@ from models.sac_agent_model import SACAgent
 # ========== Configuration ==========
 STATE_DIM = 4
 ACTION_DIM = 1
+agent = None
 MODEL_PATH = os.path.join("models", "sac_agent.pth")
 PORT = 5001  # Using fixed port for easier debugging
 HOST = "127.0.0.1"  # Using localhost first for security
