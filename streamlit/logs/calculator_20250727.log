@@ -1,0 +1,45 @@
+2025-07-27 06:13:46 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 06:13:46 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 06:13:46 - ERROR - utils - File not found: data/aws_hybrid_usage.csv
+2025-07-27 06:13:46 - ERROR - utils - File not found: data/aws_hybrid_usage.csv
+2025-07-27 06:13:46 - ERROR - utils - Error loading data/aws_hybrid_usage.csv: Data file data/aws_hybrid_usage.csv does not exist
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 13, in load_data
+    raise FileNotFoundError(f"Data file {file_path} does not exist")
+FileNotFoundError: Data file data/aws_hybrid_usage.csv does not exist
+2025-07-27 06:13:46 - ERROR - utils - Error loading data/aws_hybrid_usage.csv: Data file data/aws_hybrid_usage.csv does not exist
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 13, in load_data
+    raise FileNotFoundError(f"Data file {file_path} does not exist")
+FileNotFoundError: Data file data/aws_hybrid_usage.csv does not exist
+2025-07-27 06:13:46 - ERROR - __main__ - Dashboard error: Data file data/aws_hybrid_usage.csv does not exist
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\app.py", line 32, in main
+    cost_data = load_data("data/aws_hybrid_usage.csv")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 13, in load_data
+    raise FileNotFoundError(f"Data file {file_path} does not exist")
+FileNotFoundError: Data file data/aws_hybrid_usage.csv does not exist
+2025-07-27 06:13:46 - ERROR - __main__ - Dashboard error: Data file data/aws_hybrid_usage.csv does not exist
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\app.py", line 32, in main
+    cost_data = load_data("data/aws_hybrid_usage.csv")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 13, in load_data
+    raise FileNotFoundError(f"Data file {file_path} does not exist")
+FileNotFoundError: Data file data/aws_hybrid_usage.csv does not exist
+2025-07-27 06:13:48 - INFO - __main__ - Initializing Streamlit dashboard
+2025-07-27 06:13:48 - ERROR - utils - File not found: data/aws_hybrid_usage.csv
+2025-07-27 06:13:48 - ERROR - utils - Error loading data/aws_hybrid_usage.csv: Data file data/aws_hybrid_usage.csv does not exist
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 13, in load_data
+    raise FileNotFoundError(f"Data file {file_path} does not exist")
+FileNotFoundError: Data file data/aws_hybrid_usage.csv does not exist
+2025-07-27 06:13:48 - ERROR - __main__ - Dashboard error: Data file data/aws_hybrid_usage.csv does not exist
+Traceback (most recent call last):
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\app.py", line 32, in main
+    cost_data = load_data("data/aws_hybrid_usage.csv")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus-PC\cloud-saver\streamlit\utils.py", line 13, in load_data
+    raise FileNotFoundError(f"Data file {file_path} does not exist")
+FileNotFoundError: Data file data/aws_hybrid_usage.csv does not exist
