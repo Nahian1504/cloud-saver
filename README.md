@@ -109,4 +109,4 @@ python analysis/train_sac_agent.py \
 ---
 
 ## 📞 Contact
-Questions? Email nahian.tasnim@slu.edu.
+Email: nahian.tasnim@slu.edu.
