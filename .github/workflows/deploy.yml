@@ -264,6 +264,7 @@ jobs:
         pip install "cachetools>=4.0,<5.0"
         pip install -r documents/requirements.txt --upgrade
         pip install gunicorn torch
+        pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
     
     - name: Start API server
       run: |
@@ -284,6 +285,19 @@ jobs:
         curl -v -X POST http://localhost:5000/predict \
           -H "Content-Type: application/json" \
           -d "$SAMPLE_INSTANCE"
+
+    - name: Verify artifacts
+      run: |
+        echo "=== Model Check ==="
+        python -c "
+        import torch
+        try:
+            model = torch.load('${{ env.MODEL_PATH }}')
+            print('Model loaded successfully')
+        except Exception as e:
+            print(f'Model load failed: {e}')
+            exit(1)
+        "
     
     - name: Deploy to AWS (optional)
       if: false  # Set to true when AWS credentials are configured
