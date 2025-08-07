@@ -108,5 +108,20 @@ python analysis/train_sac_agent.py \
 
 ---
 
+## 👤 Author
+
+Nahian Tasnim
+Data Science Portfolio Project — Bayesian Clinical Trial
+GitHub: @Nahian1504
+
+---
+
+## 📄 License
+MIT License © 2025
+
+---
+
 ## 📞 Contact
 Email: nahian.tasnim@slu.edu.
+
+---
