@@ -55,7 +55,7 @@ An AI-driven solution to dynamically optimize EC2 instances for cost-performance
 ### **Core Components**  
 - **Reinforcement Learning**:  
   - [Stable Baselines3](https://stable-baselines3.readthedocs.io/) (PyTorch)  
-  - Custom `SACAgent` implementation  
+  - Custom 'SACAgent' implementation  
 - **Data Processing**:  
   - Pandas (AWS data normalization)  
   - NumPy (state vectors)  
@@ -68,10 +68,10 @@ An AI-driven solution to dynamically optimize EC2 instances for cost-performance
 
 ### **AWS & Monitoring**  
 - **Data Sources**:  
-  - AWS EC2 usage metrics (`aws_hybrid_usage.csv`)  
+  - AWS EC2 usage metrics ('aws_hybrid_usage.csv')  
   - Spot instance interruption history  
 - **Logging**:  
-  - Python `logging` module (local logs)  
+  - Python 'logging' module (local logs)  
 
 ### **Visualization**  
 - Matplotlib + Seaborn (benchmark plots)  
