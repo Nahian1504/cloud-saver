@@ -82,7 +82,7 @@ An AI-driven solution to dynamically optimize EC2 instances for cost-performance
 
 ### Prerequisites  
 - Python 3.8+  
-- AWS CLI configured (`aws configure` # Add your IAM credentials)  
+- AWS CLI configured ('aws configure' # Add your IAM credentials)  
 
 ### Installation  
 - git clone https://github.com/Nahian1504/cloud-saver.git
@@ -104,14 +104,12 @@ python analysis/train_sac_agent.py \
 ### Example observation: [CPU%, Memory%, Current Cost, Hour-of-Day]
 - observation = np.array([0.75, 0.60, 0.12, 14.0])  # 2 PM = hour 14
 - action = agent.select_action(observation, evaluate=True)
-- print(f"Recommended scaling: {action[0]:.2f}") 
 
 ---
 
 ## 👤 Author
 
 Nahian Tasnim
-Data Science Portfolio Project — Cloud-Saver
 GitHub: @Nahian1504
 
 ---
