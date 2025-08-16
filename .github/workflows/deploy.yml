@@ -87,6 +87,11 @@ jobs:
     
     - name: Install dependencies
       run: |
+        for i in {1..5}; do
+           apt-get update && apt-get install -y build-essential curl software-properties-common git && break
+           sleep 15
+        done
+        rm -rf /var/lib/apt/lists/*
         python -m pip install --upgrade pip
         pip install "cachetools>=4.0,<5.0"
         pip install -r documents/requirements.txt --upgrade
