@@ -2,13 +2,24 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install essential packages
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+# Install essential packages with retry logic for robustness
+# This handles transient network issues by retrying the apt-get commands.
+RUN set -ex; \
+    for i in $(seq 1 5); do \
+        apt-get update && \
+        apt-get install -y --no-install-recommends \
+            build-essential \
+            curl \
+            software-properties-common \
+            git && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/* && \
+        break || sleep 15; \
+    done; \
+    if [ $i -eq 5 ]; then \
+        echo "Failed to install packages after 5 retries. Exiting."; \
+        exit 1; \
+    fi
 
 # Copy requirements.txt from documents folder
 COPY documents/requirements.txt ./requirements.txt
